@@ -6,3 +6,4 @@
 - Local development using Laravel Sail
 - Static code analysis using PHPStan
 - PHP code style fixer with Laravel Pint
+- Laravel Jetstream with Livewire (Teams and Dark mode support)
