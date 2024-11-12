@@ -2,12 +2,15 @@ includes:
     - vendor/larastan/larastan/extension.neon
 parameters:
     tmpDir: %rootDir%/../storage/phpstan-cache
+    excludePaths:
+        - './.phpstorm.meta.php'
+        - './_ide_helper.php'
+        - './_ide_helper_models.php'
+        - './app/Actions/Jetstream'
     paths:
         - app/
     # Level 9 is the highest level
     level: 7
-#    ignoreErrors:
-#        - '#PHPDoc tag @var#'
-#    excludePaths:
-#        - ./*/*/FileToBeExcluded.php
-#    checkMissingIterableValueType: false
+    ignoreErrors:
+        - '#PHPDoc tag @mixin#'
+    checkMissingIterableValueType: false

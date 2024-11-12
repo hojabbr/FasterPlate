@@ -8,6 +8,7 @@
 - PHP code style fixer with Laravel Pint
 - Laravel Jetstream with Livewire (Teams and Dark mode support)
 - Filament for the Administration Dashboard
+- Automatic IDE Helper Generator after running migrations
 
 ### Installation
 - cp .env.example .env

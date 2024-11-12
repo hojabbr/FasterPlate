@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Jetstream\Jetstream;
 use Laravel\Jetstream\TeamInvitation as JetstreamTeamInvitation;
 
+/**
+ * @mixin IdeHelperTeamInvitation
+ */
 class TeamInvitation extends JetstreamTeamInvitation
 {
     /**
@@ -20,9 +24,14 @@ class TeamInvitation extends JetstreamTeamInvitation
 
     /**
      * Get the team that the invitation belongs to.
+     *
+     * @return BelongsTo<Model, $this>
      */
     public function team(): BelongsTo
     {
-        return $this->belongsTo(Jetstream::teamModel());
+        /** @var class-string<Model> $teamModel */
+        $teamModel = Jetstream::teamModel();
+
+        return $this->belongsTo($teamModel);
     }
 }

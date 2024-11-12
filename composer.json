@@ -14,6 +14,7 @@
         "livewire/livewire": "^3.0"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.2",
         "fakerphp/faker": "^1.23",
         "larastan/larastan": "^2.0",
         "laravel/pail": "^1.1",
@@ -42,7 +43,10 @@
             "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan ide-helper:generate -M",
+            "@php artisan ide-helper:meta",
+            "@php artisan ide-helper:models -M"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
