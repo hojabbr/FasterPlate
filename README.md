@@ -7,8 +7,10 @@
 - Static code analysis using PHPStan
 - PHP code style fixer with Laravel Pint
 - Laravel Jetstream with Livewire (Teams and Dark mode support)
+- Filament for the Administration Dashboard
 
 ### Installation
+- cp .env.example .env
 - npm i
 - npm run prepare
 - chmod +x .husky/commit-msg
