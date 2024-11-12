@@ -7,3 +7,7 @@
 - Static code analysis using PHPStan
 - PHP code style fixer with Laravel Pint
 - Laravel Jetstream with Livewire (Teams and Dark mode support)
+
+### Installation
+- chmod +x .husky/commit-msg
+- chmod +x .husky/pre-commit

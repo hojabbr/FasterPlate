@@ -1,0 +1,9 @@
+#!/bin/sh
+FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.php$' | tr '\n' ' ')
+
+if [ -n "$FILES" ]; then
+  echo "Running PHPStan on staged PHP files..."
+  ./vendor/bin/sail exec --user "$(id -u):$(id -g)" laravel.test php /var/www/html/vendor/bin/phpstan analyse $FILES --memory-limit=2G || exit 1
+else
+  echo "No PHP files staged for commit."
+fi

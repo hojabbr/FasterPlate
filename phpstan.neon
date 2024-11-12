@@ -1,6 +1,7 @@
 includes:
     - vendor/larastan/larastan/extension.neon
 parameters:
+    tmpDir: %rootDir%/../storage/phpstan-cache
     paths:
         - app/
     # Level 9 is the highest level
