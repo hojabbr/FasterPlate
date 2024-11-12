@@ -9,5 +9,8 @@
 - Laravel Jetstream with Livewire (Teams and Dark mode support)
 
 ### Installation
+- npm i
+- npm run prepare
 - chmod +x .husky/commit-msg
 - chmod +x .husky/pre-commit
+- npm run build
