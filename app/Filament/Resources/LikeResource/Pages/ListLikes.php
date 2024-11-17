@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\UserResource\Pages;
+namespace App\Filament\Resources\LikeResource\Pages;
 
+use App\Filament\Resources\LikeResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use App\Filament\Resources\UserResource;
 
-class ListUsers extends ListRecords
+class ListLikes extends ListRecords
 {
-    protected static string $resource = UserResource::class;
+    protected static string $resource = LikeResource::class;
 
     protected function getHeaderActions(): array
     {

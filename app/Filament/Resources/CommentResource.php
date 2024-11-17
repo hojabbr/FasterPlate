@@ -2,10 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages\CreateUser;
-use App\Filament\Resources\UserResource\Pages\EditUser;
-use App\Filament\Resources\UserResource\Pages\ListUsers;
-use App\Models\User;
+use App\Filament\Resources\CommentResource\Pages;
+use App\Models\Comment;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,37 +12,27 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class UserResource extends Resource
+class CommentResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static ?string $model = Comment::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\Textarea::make('body')
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\Select::make('user_id')
+                    ->relationship('user', 'name'),
+                Forms\Components\TextInput::make('commentable_type')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
+                Forms\Components\TextInput::make('commentable_id')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('current_team_id')
                     ->numeric(),
-                Forms\Components\TextInput::make('profile_photo_path')
-                    ->maxLength(2048),
-                Forms\Components\Textarea::make('two_factor_secret')
-                    ->columnSpanFull(),
-                Forms\Components\Textarea::make('two_factor_recovery_codes')
-                    ->columnSpanFull(),
-                Forms\Components\DateTimePicker::make('two_factor_confirmed_at'),
             ]);
     }
 
@@ -52,18 +40,14 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('current_team_id')
+                Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('profile_photo_path')
+                Tables\Columns\TextColumn::make('commentable_type')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('commentable_id')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -72,9 +56,10 @@ class UserResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('two_factor_confirmed_at')
+                Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -93,22 +78,24 @@ class UserResource extends Resource
 
     public static function getRelations(): array
     {
-        return [];
+        return [
+            //
+        ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ListUsers::route('/'),
-            'create' => CreateUser::route('/create'),
-            'edit' => EditUser::route('/{record}/edit'),
+            'index' => Pages\ListComments::route('/'),
+            'create' => Pages\CreateComment::route('/create'),
+            'edit' => Pages\EditComment::route('/{record}/edit'),
         ];
     }
 
     /**
      * Get the Eloquent query for the resource.
      *
-     * @return Builder<User>
+     * @return Builder<Comment>
      */
     public static function getEloquentQuery(): Builder
     {

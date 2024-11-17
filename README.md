@@ -9,6 +9,8 @@
 - Laravel Jetstream with Livewire (Teams and Dark mode support)
 - Filament for the Administration Dashboard
 - Automatic IDE Helper Generator after running migrations
+- User administration
+- Blog system
 
 ### Installation
 - cp .env.example .env

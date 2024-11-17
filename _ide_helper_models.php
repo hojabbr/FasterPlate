@@ -15,6 +15,62 @@ namespace App\Models{
 /**
  * 
  *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Post> $posts
+ * @property-read int|null $posts_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Category newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Category newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Category onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Category query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Category withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Category withoutTrashed()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperCategory {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $commentable
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Like> $likes
+ * @property-read int|null $likes_count
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment withoutTrashed()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperComment {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $likeable
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Like newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Like newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Like onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Like query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Like withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Like withoutTrashed()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperLike {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Membership newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Membership newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Membership query()
@@ -22,6 +78,28 @@ namespace App\Models{
  */
 	#[\AllowDynamicProperties]
 	class IdeHelperMembership {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property-read \App\Models\Category|null $category
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read int|null $comments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Like> $likes
+ * @property-read int|null $likes_count
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post withoutTrashed()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperPost {}
 }
 
 namespace App\Models{
@@ -62,11 +140,17 @@ namespace App\Models{
 /**
  * 
  *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read int|null $comments_count
  * @property-read \App\Models\Team|null $currentTeam
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Like> $likes
+ * @property-read int|null $likes_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $ownedTeams
  * @property-read int|null $owned_teams_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Post> $posts
+ * @property-read int|null $posts_count
  * @property-read string $profile_photo_url
  * @property-read \App\Models\Membership|null $membership
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\UserResource\Pages;
+namespace App\Filament\Resources\LikeResource\Pages;
 
+use App\Filament\Resources\LikeResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
-use App\Filament\Resources\UserResource;
 
-class EditUser extends EditRecord
+class EditLike extends EditRecord
 {
-    protected static string $resource = UserResource::class;
+    protected static string $resource = LikeResource::class;
 
     protected function getHeaderActions(): array
     {
