@@ -1,5 +1,6 @@
 # FasterPlate
 ##  Laravel SaaS Boilerplate with Admin Dashboard, Backend API, and Frontend 
+### This is a WIP, use only for learning purposes
 
 ### Features
 - PHP version 8.4 as default

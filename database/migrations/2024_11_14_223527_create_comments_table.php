@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->text('body');
+            $table->boolean('is_approved')->default(true);
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained('users')

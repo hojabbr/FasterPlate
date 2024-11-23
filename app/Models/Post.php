@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use Database\Factories\PostFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -12,6 +16,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Post extends Model
 {
+    /** @use HasFactory<PostFactory> */
+    use HasFactory;
+
     use SoftDeletes;
 
     protected $fillable = ['user_id', 'title', 'body', 'slug', 'is_published', 'category_id'];
@@ -46,5 +53,24 @@ class Post extends Model
     public function likes(): MorphMany
     {
         return $this->morphMany(Like::class, 'likeable');
+    }
+
+    /**
+     * @return MorphToMany<Tag, $this>
+     */
+    public function tags(): MorphToMany
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    /**
+     * Scope a query to only include published posts.
+     *
+     * @param  Builder<Post>  $query
+     * @return Builder<Post>
+     */
+    public function scopeIsPublished(Builder $query): Builder
+    {
+        return $query->where('is_published', true);
     }
 }

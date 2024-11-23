@@ -17,6 +17,7 @@ namespace App\Models{
  *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Post> $posts
  * @property-read int|null $posts_count
+ * @method static \Database\Factories\CategoryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category onlyTrashed()
@@ -37,6 +38,8 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Like> $likes
  * @property-read int|null $likes_count
  * @property-read \App\Models\User|null $user
+ * @method static \Database\Factories\CommentFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment isApproved()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment onlyTrashed()
@@ -55,6 +58,7 @@ namespace App\Models{
  *
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $likeable
  * @property-read \App\Models\User|null $user
+ * @method static \Database\Factories\LikeFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Like newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Like newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Like onlyTrashed()
@@ -89,7 +93,11 @@ namespace App\Models{
  * @property-read int|null $comments_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Like> $likes
  * @property-read int|null $likes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tag> $tags
+ * @property-read int|null $tags_count
  * @property-read \App\Models\User|null $user
+ * @method static \Database\Factories\PostFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post isPublished()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post onlyTrashed()
@@ -100,6 +108,25 @@ namespace App\Models{
  */
 	#[\AllowDynamicProperties]
 	class IdeHelperPost {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Post> $posts
+ * @property-read int|null $posts_count
+ * @method static \Database\Factories\TagFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag withoutTrashed()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperTag {}
 }
 
 namespace App\Models{

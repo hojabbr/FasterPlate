@@ -16,8 +16,16 @@ return new class extends Migration
             $table->string('title');
             $table->text('body');
             $table->string('slug')->unique();
-            $table->boolean('is_published')
-                ->default(false);
+            $table->boolean('is_published')->default(false);
+
+            // Featured image storage
+            $table->string('featured_image_path')->nullable(); // File path
+            $table->string('featured_image_disk')->default('public'); // Storage disk
+
+            // Video storage
+            $table->string('video_path')->nullable(); // File path
+            $table->string('video_disk')->default('public'); // Storage disk
+
             $table->foreignId('category_id')
                 ->constrained('categories')
                 ->onUpdate('cascade')

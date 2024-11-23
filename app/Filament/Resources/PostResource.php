@@ -17,7 +17,7 @@ class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -34,6 +34,21 @@ class PostResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Toggle::make('is_published')
                     ->required(),
+                Forms\Components\FileUpload::make('featured_image_path')
+                    ->image()
+                    ->directory('images/posts')
+                    ->visibility('public')
+                    ->disk(fn (callable $get) => $get('featured_image_disk')), // Dynamically get the disk from input
+                Forms\Components\TextInput::make('featured_image_disk')
+                    ->required(),
+                Forms\Components\FileUpload::make('video_path')
+                    ->directory('videos/posts')
+                    ->visibility('public')
+                    ->disk(fn (callable $get) => $get('video_disk')), // Dynamically get the disk from input
+                Forms\Components\TextInput::make('video_disk')
+                    ->required()
+                    ->maxLength(255)
+                    ->default('public'),
                 Forms\Components\Select::make('category_id')
                     ->relationship('category', 'name')
                     ->required(),
@@ -53,6 +68,12 @@ class PostResource extends Resource
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_published')
                     ->boolean(),
+                Tables\Columns\ImageColumn::make('featured_image_path'),
+                Tables\Columns\ImageColumn::make('featured_image_disk'),
+                Tables\Columns\TextColumn::make('video_path')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('video_disk')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('category.name')
                     ->numeric()
                     ->sortable(),
@@ -104,8 +125,6 @@ class PostResource extends Resource
     }
 
     /**
-     * Get the Eloquent query for the resource.
-     *
      * @return Builder<Post>
      */
     public static function getEloquentQuery(): Builder
