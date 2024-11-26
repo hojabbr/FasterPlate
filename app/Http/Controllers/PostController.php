@@ -10,7 +10,11 @@ class PostController extends Controller
 {
     public function show(Post $post, string $slug): View
     {
-        return view('posts.show', [
+        if(!$post->is_published) {
+            abort(404);
+        }
+
+        return view('blog.posts.show', [
             'post' => $post,
             'slug' => $slug,
         ]);

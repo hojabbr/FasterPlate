@@ -21,7 +21,19 @@ class Post extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['user_id', 'title', 'body', 'slug', 'is_published', 'category_id'];
+    protected $fillable = [
+        'title',
+        'intro',
+        'body',
+        'slug',
+        'is_published',
+        'featured_image_path',
+        'featured_image_disk',
+        'video_path',
+        'video_disk',
+        'category_id',
+        'user_id',
+    ];
 
     /**
      * @return BelongsTo<User, $this>
@@ -48,6 +60,19 @@ class Post extends Model
     }
 
     /**
+     * @return MorphToMany<Tag, $this>
+     */
+    public function tags(): MorphToMany
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    public function isLikedByCurrentUser(): bool
+    {
+        return $this->likes()->where('user_id', auth()->id())->exists();
+    }
+
+    /**
      * @return MorphMany<Like, $this>
      */
     public function likes(): MorphMany
@@ -56,17 +81,9 @@ class Post extends Model
     }
 
     /**
-     * @return MorphToMany<Tag, $this>
-     */
-    public function tags(): MorphToMany
-    {
-        return $this->morphToMany(Tag::class, 'taggable');
-    }
-
-    /**
      * Scope a query to only include published posts.
      *
-     * @param  Builder<Post>  $query
+     * @param Builder<Post> $query
      * @return Builder<Post>
      */
     public function scopeIsPublished(Builder $query): Builder

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CommentResource\Pages;
+use App\Filament\Resources\CommentResource\RelationManagers;
 use App\Models\Comment;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -25,6 +26,8 @@ class CommentResource extends Resource
                 Forms\Components\Textarea::make('body')
                     ->required()
                     ->columnSpanFull(),
+                Forms\Components\Toggle::make('is_approved')
+                    ->required(),
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name'),
                 Forms\Components\TextInput::make('commentable_type')
@@ -40,6 +43,8 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\IconColumn::make('is_approved')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
@@ -93,8 +98,6 @@ class CommentResource extends Resource
     }
 
     /**
-     * Get the Eloquent query for the resource.
-     *
      * @return Builder<Comment>
      */
     public static function getEloquentQuery(): Builder

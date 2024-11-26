@@ -12,7 +12,7 @@ class CategoryController extends Controller
     {
         $posts = Post::where('category_id', $category->id)->latest()->isPublished()->paginate(10);
 
-        return view('categories.show', [
+        return view('blog.categories.show', [
             'category' => $category,
             'posts' => $posts
         ]);

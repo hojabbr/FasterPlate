@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Comment;
 use App\Models\Post;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class ShowPost extends Component
@@ -11,6 +12,8 @@ class ShowPost extends Component
     public Post $post;
 
     public string $newComment = ''; // Temporary property for new comment input
+
+    public bool $commentSubmitted = false;
 
     protected array $rules = ['newComment' => 'required|string|max:1000',];
 
@@ -27,8 +30,8 @@ class ShowPost extends Component
 
         // Dynamically resolve the model
         $model = match ($modelType) {
-            'post' => Post::find($modelId),
-            'comment' => Comment::find($modelId),
+            'post', 'Post' => Post::findOrFail($modelId),
+            'comment', 'Comment' => Comment::findOrFail($modelId),
             default => null,
         };
 
@@ -53,9 +56,14 @@ class ShowPost extends Component
         $this->validate();
 
         if (auth()->check()) {
-            $this->post->comments()->create(['body' => $this->newComment, 'user_id' => auth()->id(),]);
+            $this->post->comments()->create([
+                'body' => $this->newComment,
+                'user_id' => auth()->id(),
+                'is_approved' => false,
+                ]);
 
             $this->newComment = ''; // Clear the input field
+            $this->commentSubmitted = true; // Set the submission state
             $this->refreshPostData();
         }
     }
@@ -63,5 +71,10 @@ class ShowPost extends Component
     private function getApprovedComments(mixed $query): mixed
     {
         return $query->isApproved()->withCount('likes');
+    }
+
+    public function render(): View
+    {
+        return view('components.show-post');
     }
 }

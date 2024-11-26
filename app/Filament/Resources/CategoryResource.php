@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
+use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -28,6 +29,16 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Toggle::make('commentable')
+                    ->required(),
+                Forms\Components\Toggle::make('likeable')
+                    ->required(),
+                Forms\Components\TextInput::make('order')
+                    ->required()
+                    ->numeric()
+                    ->default(1),
+                Forms\Components\Toggle::make('is_published')
+                    ->required(),
             ]);
     }
 
@@ -39,6 +50,15 @@ class CategoryResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
+                Tables\Columns\IconColumn::make('commentable')
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('likeable')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('order')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('is_published')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -84,8 +104,6 @@ class CategoryResource extends Resource
     }
 
     /**
-     * Get the Eloquent query for the resource.
-     *
      * @return Builder<Category>
      */
     public static function getEloquentQuery(): Builder

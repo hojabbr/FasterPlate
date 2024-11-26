@@ -19,7 +19,7 @@ class AppLayout extends Component
      */
     public function __construct()
     {
-        $this->categories = Category::all();
+        $this->categories = Category::isPublished()->orderBy('order')->get();
     }
 
     /**

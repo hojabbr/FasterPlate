@@ -20,7 +20,7 @@ class Comment extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['user_id', 'body'];
+    protected $fillable = ['user_id', 'body', 'is_approved'];
 
     /**
      * @return MorphTo<Model, $this>
@@ -44,6 +44,11 @@ class Comment extends Model
     public function likes(): MorphMany
     {
         return $this->morphMany(Like::class, 'likeable');
+    }
+
+    public function isLikedByCurrentUser(): bool
+    {
+        return $this->likes()->where('user_id', auth()->id())->exists();
     }
 
     /**

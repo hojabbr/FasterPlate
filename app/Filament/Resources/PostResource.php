@@ -26,8 +26,9 @@ class PostResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('body')
-                    ->required()
+                Forms\Components\Textarea::make('intro')
+                    ->columnSpanFull(),
+                Forms\Components\RichEditor::make('body')
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('slug')
                     ->required()
@@ -40,14 +41,12 @@ class PostResource extends Resource
                     ->visibility('public')
                     ->disk(fn (callable $get) => $get('featured_image_disk')), // Dynamically get the disk from input
                 Forms\Components\TextInput::make('featured_image_disk')
-                    ->required(),
+                    ->default('public'),
                 Forms\Components\FileUpload::make('video_path')
                     ->directory('videos/posts')
                     ->visibility('public')
                     ->disk(fn (callable $get) => $get('video_disk')), // Dynamically get the disk from input
                 Forms\Components\TextInput::make('video_disk')
-                    ->required()
-                    ->maxLength(255)
                     ->default('public'),
                 Forms\Components\Select::make('category_id')
                     ->relationship('category', 'name')
@@ -64,16 +63,9 @@ class PostResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
                 Tables\Columns\IconColumn::make('is_published')
                     ->boolean(),
                 Tables\Columns\ImageColumn::make('featured_image_path'),
-                Tables\Columns\ImageColumn::make('featured_image_disk'),
-                Tables\Columns\TextColumn::make('video_path')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('video_disk')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('category.name')
                     ->numeric()
                     ->sortable(),
